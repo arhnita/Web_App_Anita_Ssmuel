@@ -2,9 +2,9 @@ import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'ax
 import Cookies from 'js-cookie';
 
 // Use production URL or fallback to localhost for development
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 
-    (typeof window !== 'undefined' && window.location.hostname !== 'localhost' 
-        ? 'https://web-app-anita-ssmuel.onrender.com/api' 
+const API_URL = process.env.NEXT_PUBLIC_API_URL ||
+    (typeof window !== 'undefined' && window.location.hostname !== 'localhost'
+        ? 'https://web-app-anita-ssmuel.onrender.com/api'
         : 'http://localhost:5000/api');
 
 // Create axios instance

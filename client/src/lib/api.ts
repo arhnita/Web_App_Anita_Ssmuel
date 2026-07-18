@@ -19,7 +19,6 @@ const api = axios.create({
         'Content-Type': 'application/json',
     },
     timeout: 90000, // 90 seconds for Render cold start
-    withCredentials: true, // Enable cross-origin cookies
 });
 
 // Request interceptor - add auth token

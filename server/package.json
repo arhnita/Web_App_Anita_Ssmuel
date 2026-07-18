@@ -2,6 +2,9 @@
   "name": "server",
   "version": "1.0.0",
   "main": "dist/index.js",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "dev": "nodemon --exec ts-node src/index.ts",
     "build": "tsc",
@@ -21,6 +24,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@prisma/client": "5.22.0",
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
@@ -30,12 +34,12 @@
     "jsonwebtoken": "^9.0.3",
     "morgan": "^1.11.0",
     "multer": "^2.2.0",
+    "prisma": "5.22.0",
     "swagger-jsdoc": "^6.3.0",
     "swagger-ui-express": "^5.0.1",
     "uuid": "^14.0.1"
   },
   "devDependencies": {
-    "@prisma/client": "^5.22.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
@@ -50,7 +54,6 @@
     "@types/uuid": "^10.0.0",
     "jest": "^30.4.2",
     "nodemon": "^3.1.14",
-    "prisma": "^5.22.0",
     "supertest": "^7.2.2",
     "ts-jest": "^29.4.11",
     "ts-node": "^10.9.2",

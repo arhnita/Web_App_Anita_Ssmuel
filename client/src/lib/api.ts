@@ -10,6 +10,7 @@ const api = axios.create({
         'Content-Type': 'application/json',
     },
     timeout: 30000, // 30 seconds for remote database
+    withCredentials: true, // Enable cross-origin cookies
 });
 
 // Request interceptor - add auth token

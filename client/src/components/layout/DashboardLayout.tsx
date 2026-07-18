@@ -60,12 +60,12 @@ export function DashboardLayout({
       <div className="hidden lg:block">
         <Sidebar isOpen={true} />
       </div>
-      
+
       {/* Mobile sidebar - controlled by state */}
       <div className="lg:hidden">
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       </div>
-      
+
       <div className="flex-1 flex flex-col min-w-0">
         {/* Mobile header with menu button */}
         <div className="lg:hidden flex items-center gap-4 p-4 bg-white border-b">
@@ -77,12 +77,12 @@ export function DashboardLayout({
           </button>
           <h1 className="font-semibold text-gray-800">UniMaintain</h1>
         </div>
-        
+
         {/* Desktop header */}
         <div className="hidden lg:block">
           <Header />
         </div>
-        
+
         <main className="flex-1 p-4 lg:p-6 overflow-x-hidden">{children}</main>
       </div>
     </div>

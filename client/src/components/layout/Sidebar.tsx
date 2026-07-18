@@ -102,20 +102,26 @@ export function Sidebar({ isOpen = true, onClose }: SidebarProps) {
     <>
       {/* Mobile overlay */}
       {isOpen && onClose && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/50 z-40 lg:hidden"
           onClick={onClose}
         />
       )}
-      
+
       {/* Sidebar */}
-      <aside className={cn(
-        "fixed lg:static inset-y-0 left-0 z-50 w-64 bg-red-800 text-white transform transition-transform duration-300 ease-in-out lg:transform-none",
-        isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-      )}>
+      <aside
+        className={cn(
+          "fixed lg:static inset-y-0 left-0 z-50 w-64 bg-red-800 text-white transform transition-transform duration-300 ease-in-out lg:transform-none",
+          isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
+        )}
+      >
         {/* Logo */}
         <div className="p-6 border-b border-red-700 flex items-center justify-between">
-          <Link href="/dashboard" className="flex items-center gap-3" onClick={handleNavClick}>
+          <Link
+            href="/dashboard"
+            className="flex items-center gap-3"
+            onClick={handleNavClick}
+          >
             <div className="w-10 h-10 bg-amber-800 rounded-lg flex items-center justify-center">
               <Wrench className="w-6 h-6 text-white" />
             </div>
@@ -126,7 +132,7 @@ export function Sidebar({ isOpen = true, onClose }: SidebarProps) {
           </Link>
           {/* Close button for mobile */}
           {onClose && (
-            <button 
+            <button
               onClick={onClose}
               className="lg:hidden p-2 hover:bg-red-700 rounded-lg"
             >
@@ -136,7 +142,10 @@ export function Sidebar({ isOpen = true, onClose }: SidebarProps) {
         </div>
 
         {/* Navigation */}
-        <nav className="p-4 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 180px)' }}>
+        <nav
+          className="p-4 overflow-y-auto"
+          style={{ maxHeight: "calc(100vh - 180px)" }}
+        >
           <ul className="space-y-2">
             {filteredNavItems.map((item) => {
               const Icon = item.icon;

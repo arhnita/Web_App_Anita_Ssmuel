@@ -7,6 +7,11 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL ||
         ? 'https://web-app-anita-ssmuel.onrender.com/api'
         : 'http://localhost:5000/api');
 
+// Debug: Log the API URL being used
+if (typeof window !== 'undefined') {
+    console.log('API_URL configured as:', API_URL);
+}
+
 // Create axios instance
 const api = axios.create({
     baseURL: API_URL,

@@ -40,7 +40,9 @@ export const useAuthStore = create<AuthState>()(
             login: async (email: string, password: string) => {
                 set({ isLoading: true, error: null });
                 try {
+                    console.log('Attempting login to:', process.env.NEXT_PUBLIC_API_URL || 'fallback URL');
                     const response = await authApi.login(email, password);
+                    console.log('Login response:', response.data);
                     const { user, token } = response.data.data;
 
                     // Set token in cookie for API interceptor
@@ -54,6 +56,7 @@ export const useAuthStore = create<AuthState>()(
                         error: null,
                     });
                 } catch (error: unknown) {
+                    console.error('Login error:', error);
                     const errorMessage =
                         (error as { response?: { data?: { message?: string } } })?.response?.data?.message ||
                         'Login failed. Please try again.';

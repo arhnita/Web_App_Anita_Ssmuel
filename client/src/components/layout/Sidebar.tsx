@@ -150,7 +150,8 @@ export function Sidebar({ isOpen = true, onClose }: SidebarProps) {
               {filteredNavItems.map((item) => {
                 const Icon = item.icon;
                 const isActive =
-                  pathname === item.href || pathname.startsWith(item.href + "/");
+                  pathname === item.href ||
+                  pathname.startsWith(item.href + "/");
 
                 return (
                   <li key={item.href}>
@@ -177,7 +178,9 @@ export function Sidebar({ isOpen = true, onClose }: SidebarProps) {
           <div className="p-4 border-t border-red-700 flex-shrink-0">
             <div className="px-4 py-2 bg-amber-800 rounded-lg">
               <p className="text-xs text-amber-200">Logged in as</p>
-              <p className="text-sm font-medium">{user.role.replace("_", " ")}</p>
+              <p className="text-sm font-medium">
+                {user.role.replace("_", " ")}
+              </p>
             </div>
           </div>
         </div>

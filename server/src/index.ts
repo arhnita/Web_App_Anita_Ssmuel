@@ -59,15 +59,15 @@ const swaggerOptions = {
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 
-// Middleware
-app.use(helmet({
-    crossOriginResourcePolicy: { policy: "cross-origin" },
-    crossOriginOpenerPolicy: { policy: "unsafe-none" },
-})); // Security headers with cross-origin support
+// Middleware - CORS must come BEFORE other middleware
 app.use(cors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
-    credentials: true
+    origin: true, // Allow all origins temporarily for debugging
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
+// Disable helmet temporarily for debugging
+// app.use(helmet());
 app.use(morgan('dev')); // Request logging
 app.use(express.json()); // Parse JSON bodies
 app.use(express.urlencoded({ extended: true }));

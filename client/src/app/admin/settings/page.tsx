@@ -1,11 +1,17 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { DashboardLayout } from '@/components/layout';
-import { Card, CardContent, CardHeader, CardTitle, Button } from '@/components/ui';
-import { categoriesApi } from '@/lib/api';
-import { RequestCategory } from '@/types';
-import { Settings, Tag, CheckCircle, AlertCircle } from 'lucide-react';
+import { useEffect, useState } from "react";
+import { DashboardLayout } from "@/components/layout";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Button,
+} from "@/components/ui";
+import { categoriesApi } from "@/lib/api";
+import { RequestCategory } from "@/types";
+import { Settings, Tag, CheckCircle, AlertCircle } from "lucide-react";
 
 export default function AdminSettingsPage() {
   const [categories, setCategories] = useState<RequestCategory[]>([]);
@@ -17,7 +23,7 @@ export default function AdminSettingsPage() {
         const response = await categoriesApi.getAll();
         setCategories(response.data.data || []);
       } catch (error) {
-        console.error('Failed to fetch categories:', error);
+        console.error("Failed to fetch categories:", error);
       } finally {
         setLoading(false);
       }
@@ -27,7 +33,7 @@ export default function AdminSettingsPage() {
   }, []);
 
   return (
-    <DashboardLayout allowedRoles={['ADMIN']}>
+    <DashboardLayout allowedRoles={["ADMIN"]}>
       <div className="space-y-6">
         {/* Header */}
         <div>
@@ -70,7 +76,8 @@ export default function AdminSettingsPage() {
                 <div>
                   <p className="text-sm text-gray-500">API Endpoint</p>
                   <p className="font-medium text-gray-900 text-sm font-mono">
-                    {process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}
+                    {process.env.NEXT_PUBLIC_API_URL ||
+                      "http://localhost:5000/api"}
                   </p>
                 </div>
               </div>
@@ -88,7 +95,9 @@ export default function AdminSettingsPage() {
           </CardHeader>
           <CardContent>
             {loading ? (
-              <div className="text-center py-8 text-gray-500">Loading categories...</div>
+              <div className="text-center py-8 text-gray-500">
+                Loading categories...
+              </div>
             ) : categories.length === 0 ? (
               <div className="text-center py-8">
                 <AlertCircle className="w-12 h-12 text-gray-300 mx-auto mb-4" />
@@ -105,21 +114,25 @@ export default function AdminSettingsPage() {
                     className="p-4 border border-gray-200 rounded-lg hover:border-red-300 transition-colors"
                   >
                     <div className="flex items-center gap-3">
-                      <span className="text-2xl">{category.icon || '🔧'}</span>
+                      <span className="text-2xl">{category.icon || "🔧"}</span>
                       <div>
-                        <p className="font-medium text-gray-900">{category.name}</p>
+                        <p className="font-medium text-gray-900">
+                          {category.name}
+                        </p>
                         <p className="text-sm text-gray-500">
-                          {category.description || 'No description'}
+                          {category.description || "No description"}
                         </p>
                       </div>
                     </div>
                     <div className="mt-3 flex items-center justify-between">
-                      <span className={`px-2 py-1 text-xs rounded-full ${
-                        category.isActive 
-                          ? 'bg-green-100 text-green-700' 
-                          : 'bg-gray-100 text-gray-600'
-                      }`}>
-                        {category.isActive ? 'Active' : 'Inactive'}
+                      <span
+                        className={`px-2 py-1 text-xs rounded-full ${
+                          category.isActive
+                            ? "bg-green-100 text-green-700"
+                            : "bg-gray-100 text-gray-600"
+                        }`}
+                      >
+                        {category.isActive ? "Active" : "Inactive"}
                       </span>
                       {category._count && (
                         <span className="text-sm text-gray-500">
@@ -144,19 +157,27 @@ export default function AdminSettingsPage() {
               <div className="p-4 bg-red-50 border border-red-100 rounded-lg">
                 <h4 className="font-medium text-red-900">Seed Database</h4>
                 <p className="text-sm text-red-700 mt-1">
-                  Run <code className="bg-red-100 px-1 rounded">npm run seed</code> in the server directory to populate sample data.
+                  Run{" "}
+                  <code className="bg-red-100 px-1 rounded">npm run seed</code>{" "}
+                  in the server directory to populate sample data.
                 </p>
               </div>
               <div className="p-4 bg-amber-50 border border-amber-100 rounded-lg">
                 <h4 className="font-medium text-amber-900">Reset Data</h4>
                 <p className="text-sm text-amber-700 mt-1">
-                  Use Prisma Studio with <code className="bg-amber-100 px-1 rounded">npx prisma studio</code> to manage data.
+                  Use Prisma Studio with{" "}
+                  <code className="bg-amber-100 px-1 rounded">
+                    npx prisma studio
+                  </code>{" "}
+                  to manage data.
                 </p>
               </div>
               <div className="p-4 bg-blue-50 border border-blue-100 rounded-lg">
                 <h4 className="font-medium text-blue-900">Documentation</h4>
                 <p className="text-sm text-blue-700 mt-1">
-                  API docs available at <code className="bg-blue-100 px-1 rounded">/api-docs</code> endpoint.
+                  API docs available at{" "}
+                  <code className="bg-blue-100 px-1 rounded">/api-docs</code>{" "}
+                  endpoint.
                 </p>
               </div>
             </div>

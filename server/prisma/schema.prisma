@@ -1,0 +1,133 @@
+// Prisma Schema for University Maintenance Request System
+// This file defines the database structure
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============ ENUMS ============
+
+enum Role {
+  STUDENT
+  STAFF
+  MAINTENANCE_OFFICER
+  ADMIN
+}
+
+enum RequestStatus {
+  PENDING
+  ASSIGNED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+// ============ MODELS ============
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  password      String
+  firstName     String
+  lastName      String
+  phone         String?
+  department    String?
+  role          Role      @default(STUDENT)
+  isActive      Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  requests           ServiceRequest[]    @relation("UserRequests")
+  assignmentsAsOfficer Assignment[]      @relation("OfficerAssignments")
+  assignmentsMade    Assignment[]        @relation("AssignedByUser")
+  statusChanges      StatusLog[]         @relation("StatusChangedBy")
+
+  @@map("users")
+}
+
+model RequestCategory {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?
+  icon        String?  // Icon name for UI (e.g., 'zap', 'droplet', 'wifi')
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  // Relations
+  requests    ServiceRequest[]
+
+  @@map("request_categories")
+}
+
+model ServiceRequest {
+  id          String        @id @default(cuid())
+  title       String
+  description String
+  location    String        // Building/Room number
+  priority    Priority      @default(MEDIUM)
+  status      RequestStatus @default(PENDING)
+  imageUrl    String?       // Evidence photo URL
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  // Foreign Keys
+  userId      String
+  categoryId  String
+
+  // Relations
+  user        User              @relation("UserRequests", fields: [userId], references: [id], onDelete: Cascade)
+  category    RequestCategory   @relation(fields: [categoryId], references: [id])
+  assignments Assignment[]
+  statusLogs  StatusLog[]
+
+  @@map("service_requests")
+}
+
+model Assignment {
+  id          String   @id @default(cuid())
+  notes       String?
+  assignedAt  DateTime @default(now())
+
+  // Foreign Keys
+  requestId    String
+  officerId    String
+  assignedById String
+
+  // Relations
+  request     ServiceRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  officer     User           @relation("OfficerAssignments", fields: [officerId], references: [id])
+  assignedBy  User           @relation("AssignedByUser", fields: [assignedById], references: [id])
+
+  @@map("assignments")
+}
+
+model StatusLog {
+  id             String        @id @default(cuid())
+  previousStatus RequestStatus
+  newStatus      RequestStatus
+  comments       String?
+  createdAt      DateTime      @default(now())
+
+  // Foreign Keys
+  requestId      String
+  changedById    String
+
+  // Relations
+  request        ServiceRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  changedBy      User           @relation("StatusChangedBy", fields: [changedById], references: [id])
+
+  @@map("status_logs")
+}

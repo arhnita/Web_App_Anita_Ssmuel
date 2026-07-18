@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+
+  /* Brand Colors: Red, Brown, White */
+  --primary: #b91c1c; /* Red-700 */
+  --primary-dark: #991b1b; /* Red-800 */
+  --primary-light: #dc2626; /* Red-600 */
+  --secondary: #78350f; /* Brown/Amber-900 */
+  --secondary-light: #92400e; /* Brown/Amber-800 */
+  --accent: #fef3c7; /* Warm cream */
+  --success: #16a34a;
+  --warning: #f59e0b;
+  --error: #dc2626;
+  --info: #2563eb;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+  --color-primary-light: var(--primary-light);
+  --color-secondary: var(--secondary);
+  --color-secondary-light: var(--secondary-light);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Custom utility classes */
+.btn-primary {
+  @apply bg-red-700 hover:bg-red-800 text-white font-medium py-2 px-4 rounded-lg transition-colors;
+}
+
+.btn-secondary {
+  @apply bg-amber-900 hover:bg-amber-800 text-white font-medium py-2 px-4 rounded-lg transition-colors;
+}
+
+.btn-outline {
+  @apply border-2 border-red-700 text-red-700 hover:bg-red-700 hover:text-white font-medium py-2 px-4 rounded-lg transition-colors;
+}
+
+.card {
+  @apply bg-white rounded-xl shadow-md p-6;
+}
+
+.input-field {
+  @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition;
+}
+
+/* Status badge colors */
+.badge-pending {
+  @apply bg-yellow-100 text-yellow-800;
+}
+
+.badge-assigned {
+  @apply bg-blue-100 text-blue-800;
+}
+
+.badge-in-progress {
+  @apply bg-purple-100 text-purple-800;
+}
+
+.badge-completed {
+  @apply bg-green-100 text-green-800;
+}
+
+.badge-cancelled {
+  @apply bg-gray-100 text-gray-800;
+}
+
+/* Priority colors */
+.priority-low {
+  @apply bg-gray-100 text-gray-700;
+}
+
+.priority-medium {
+  @apply bg-blue-100 text-blue-700;
+}
+
+.priority-high {
+  @apply bg-orange-100 text-orange-700;
+}
+
+.priority-urgent {
+  @apply bg-red-100 text-red-700;
+}

@@ -57,8 +57,10 @@ export function DashboardLayout({
   return (
     <div className="flex min-h-screen bg-gray-50">
       {/* Desktop sidebar - always visible on lg screens */}
-      <div className="hidden lg:block">
-        <Sidebar isOpen={true} />
+      <div className="hidden lg:block lg:w-64 lg:flex-shrink-0">
+        <div className="fixed w-64 h-screen">
+          <Sidebar isOpen={true} />
+        </div>
       </div>
 
       {/* Mobile sidebar - controlled by state */}

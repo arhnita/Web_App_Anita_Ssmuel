@@ -13,7 +13,7 @@ const api = axios.create({
     headers: {
         'Content-Type': 'application/json',
     },
-    timeout: 30000, // 30 seconds for remote database
+    timeout: 90000, // 90 seconds for Render cold start
     withCredentials: true, // Enable cross-origin cookies
 });
 

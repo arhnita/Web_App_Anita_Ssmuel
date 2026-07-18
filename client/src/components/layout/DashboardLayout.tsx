@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/authStore";
 import { Sidebar } from "./Sidebar";
 import { Header } from "./Header";
-import { Loader2 } from "lucide-react";
+import { Loader2, Menu } from "lucide-react";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -18,6 +18,7 @@ export function DashboardLayout({
 }: DashboardLayoutProps) {
   const router = useRouter();
   const { user, isAuthenticated, isLoading, fetchUser } = useAuthStore();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     fetchUser();
@@ -55,10 +56,34 @@ export function DashboardLayout({
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      <Sidebar />
-      <div className="flex-1 flex flex-col">
-        <Header />
-        <main className="flex-1 p-6">{children}</main>
+      {/* Desktop sidebar - always visible on lg screens */}
+      <div className="hidden lg:block">
+        <Sidebar isOpen={true} />
+      </div>
+      
+      {/* Mobile sidebar - controlled by state */}
+      <div className="lg:hidden">
+        <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      </div>
+      
+      <div className="flex-1 flex flex-col min-w-0">
+        {/* Mobile header with menu button */}
+        <div className="lg:hidden flex items-center gap-4 p-4 bg-white border-b">
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="p-2 hover:bg-gray-100 rounded-lg"
+          >
+            <Menu className="w-6 h-6 text-gray-700" />
+          </button>
+          <h1 className="font-semibold text-gray-800">UniMaintain</h1>
+        </div>
+        
+        {/* Desktop header */}
+        <div className="hidden lg:block">
+          <Header />
+        </div>
+        
+        <main className="flex-1 p-4 lg:p-6 overflow-x-hidden">{children}</main>
       </div>
     </div>
   );
